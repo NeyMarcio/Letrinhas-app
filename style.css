@@ -1,0 +1,204 @@
+/* Fonte divertida */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2&display=swap');
+
+body {
+    font-family: 'Baloo 2', cursive, Arial, sans-serif;
+    background: linear-gradient(135deg, #a2d2ff, #ffe066);
+    margin: 0;
+    padding: 20px;
+    color: #333;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h1,
+h2,
+h3 {
+    margin-bottom: 20px;
+    color: #005f73;
+    text-shadow: 1px 1px 2px #94d2bd;
+}
+
+button {
+    background: #0077b6;
+    border: none;
+    border-radius: 15px;
+    color: white;
+    font-size: 1.3rem;
+    padding: 15px 30px;
+    margin: 10px;
+    cursor: pointer;
+    box-shadow: 0 6px #023e8a;
+    transition: background 0.3s, box-shadow 0.2s;
+    user-select: none;
+}
+
+button:hover {
+    background: #0096c7;
+    box-shadow: 0 4px #026aa7;
+}
+
+button:active {
+    box-shadow: 0 2px #023e8a;
+    transform: translateY(2px);
+}
+
+#lista-licoes button {
+    width: 200px;
+}
+
+.escondido {
+    display: none;
+}
+
+#emoji {
+    font-size: 5rem;
+    margin-bottom: 20px;
+}
+
+#sugestoes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.silaba {
+    background: #48cae4;
+    color: white;
+    font-weight: bold;
+    padding: 20px 25px;
+    border-radius: 20px;
+    font-size: 1.8rem;
+    cursor: grab;
+    user-select: none;
+    box-shadow: 0 4px #0096c7;
+    transition: background 0.3s;
+}
+
+.silaba:active {
+    cursor: grabbing;
+    background: #0096c7;
+    box-shadow: 0 2px #0077b6;
+}
+
+#resposta {
+    min-height: 60px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    background: #caf0f8;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    box-shadow: inset 0 0 8px #48cae4;
+    user-select: none;
+}
+
+#acerto {
+    animation: bounce 0.6s ease;
+    color: green;
+    font-weight: 900;
+}
+
+#feedback {
+    font-size: 1.5rem;
+    min-height: 40px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    user-select: none;
+}
+
+#botoes-acao {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+button#btn-proximo {
+    background: #38b000;
+    box-shadow: 0 6px #2e7c00;
+}
+
+button#btn-proximo:hover {
+    background: #70d000;
+    box-shadow: 0 4px #4f9a00;
+}
+
+button#btn-proximo:active {
+    box-shadow: 0 2px #2e7c00;
+    transform: translateY(2px);
+}
+
+/* Animação para acerto */
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* Classes para acerto e erro */
+.acerto {
+    animation: bounce 0.6s ease;
+    color: #38b000;
+    font-weight: 900;
+}
+
+.erro {
+    animation: shake 0.6s ease;
+    color: #d00000;
+    font-weight: 900;
+}
+
+/* Animação para erro */
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20%,
+    60% {
+        transform: translateX(-10px);
+    }
+
+    40%,
+    80% {
+        transform: translateX(10px);
+    }
+}
+
+/* Botão voltar no canto esquerdo */
+#btn-voltar {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: #023e8a;
+    box-shadow: 0 4px #012f5b;
+    padding: 10px 15px;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    display: none;
+    /* escondido por padrão */
+    user-select: none;
+}
+
+#btn-voltar:hover {
+    background: #0353a4;
+    box-shadow: 0 3px #023e8a;
+}
+
+#btn-voltar:active {
+    box-shadow: 0 2px #012f5b;
+    transform: translateY(2px);
+}

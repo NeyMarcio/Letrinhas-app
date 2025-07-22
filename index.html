@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Letrinhas - Jogo Educativo</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div id="tela-inicial">
+        <h1>🐤 Bem-vindo ao Letrinhas!</h1>
+        <button onclick="mostrarLicoes()">Começar</button>
+    </div>
+
+    <div id="tela-licoes" class="escondido">
+        <h2>Escolha uma palavra:</h2>
+        <div id="lista-licoes"></div>
+        <!-- botão voltar removido daqui -->
+    </div>
+
+    <div id="tela-atividade" class="escondido">
+        <h2>Monte a palavra:</h2>
+        <div id="emoji" style="font-size: 60px;"></div>
+        <div id="sugestoes" class="silabas-container"></div>
+        <div id="resposta" ondragover="permitirSoltar(event)" ondrop="soltar(event)"></div>
+        <div id="feedback"></div>
+        <button onclick="proximaLicao()" id="btn-proximo" class="escondido">Próxima</button>
+        <button onclick="reiniciar()">🔄 Tentar de novo</button>
+        <button class="btn-voltar" onclick="voltarMenu()">⬅ Voltar</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
