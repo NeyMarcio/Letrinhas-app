@@ -1,180 +1,186 @@
-let palavraCorreta = '';
-let emojiAtual = '';
-let silabasCorretas = [];
-let indiceAtual = 0;
+let licoes = [];
+let licaoAtual = 0;
 
-const licoes = [
-    // Animais famosos e frutas com emoji (mantidos igual)
-    { palavra: 'GATO', silabas: ['GA', 'TO'], emoji: '🐱' },
-    { palavra: 'CACHORRO', silabas: ['CA', 'CHO', 'RRO'], emoji: '🐶' },
-    { palavra: 'LEÃO', silabas: ['LE', 'ÃO'], emoji: '🦁' },
-    { palavra: 'ELEFANTE', silabas: ['E', 'LE', 'FAN', 'TE'], emoji: '🐘' },
-    { palavra: 'COELHO', silabas: ['CO', 'E', 'LHO'], emoji: '🐰' },
-    { palavra: 'URSO', silabas: ['UR', 'SO'], emoji: '🐻' },
-    { palavra: 'TIGRE', silabas: ['TI', 'GRE'], emoji: '🐯' },
-    { palavra: 'CAVALO', silabas: ['CA', 'VA', 'LO'], emoji: '🐴' },
-    { palavra: 'PANDA', silabas: ['PAN', 'DA'], emoji: '🐼' },
-    { palavra: 'GIRAFA', silabas: ['GI', 'RA', 'FA'], emoji: '🦒' },
-    { palavra: 'PEIXE', silabas: ['PEI', 'XE'], emoji: '🐟' },
-    { palavra: 'PAPAGAIO', silabas: ['PA', 'PA', 'GA', 'IO'], emoji: '🦜' },
-    { palavra: 'CORUJA', silabas: ['CO', 'RU', 'JA'], emoji: '🦉' },
-    { palavra: 'FLAMINGO', silabas: ['FLA', 'MIN', 'GO'], emoji: '🦩' },
-    { palavra: 'GOLFINHO', silabas: ['GOL', 'FI', 'NHO'], emoji: '🐬' },
-    { palavra: 'HIPOPÓTAMO', silabas: ['HI', 'PO', 'PÓ', 'TA', 'MO'], emoji: '🦛' },
-    { palavra: 'IGUANA', silabas: ['I', 'GUA', 'NA'], emoji: '🦎' },
-    { palavra: 'JACARÉ', silabas: ['JA', 'CA', 'RÉ'], emoji: '🐊' },
-    { palavra: 'MACACO', silabas: ['MA', 'CA', 'CO'], emoji: '🐒' },
-    { palavra: 'ORNITORRINCO', silabas: ['OR', 'NI', 'TO', 'RRI', 'NCO'], emoji: '🦦' },
-    { palavra: 'QUATI', silabas: ['QUA', 'TI'], emoji: '🦝' },
-    { palavra: 'RAPOSA', silabas: ['RA', 'PO', 'SA'], emoji: '🦊' },
-    { palavra: 'SABIÁ', silabas: ['SA', 'BI', 'Á'], emoji: '🐦' },
-    { palavra: 'TARTARUGA', silabas: ['TAR', 'TA', 'RU', 'GA'], emoji: '🐢' },
-    { palavra: 'ZEBRA', silabas: ['ZE', 'BRA'], emoji: '🦓' },
-    { palavra: 'CISNE', silabas: ['CIS', 'NE'], emoji: '🦢' },
-    { palavra: 'ONÇA', silabas: ['ON', 'ÇA'], emoji: '🐆' },
-    { palavra: 'BÚFALO', silabas: ['BÚ', 'FA', 'LO'], emoji: '🐃' },
-    { palavra: 'CANGURU', silabas: ['CAN', 'GU', 'RU'], emoji: '🦘' },
-    { palavra: 'COALA', silabas: ['CO', 'A', 'LA'], emoji: '🐨' },
-    { palavra: 'LAGARTIXA', silabas: ['LA', 'GAR', 'TI', 'XA'], emoji: '🦎' },
-    { palavra: 'PAVÃO', silabas: ['PA', 'VÃO'], emoji: '🦚' },
-    { palavra: 'FALCÃO', silabas: ['FAL', 'CÃO'], emoji: '🦅' },
-    { palavra: 'ANDORINHA', silabas: ['AN', 'DO', 'RI', 'NHA'], emoji: '🐦' },
-    { palavra: 'GALO', silabas: ['GA', 'LO'], emoji: '🐓' },
-    { palavra: 'GALINHA', silabas: ['GA', 'LI', 'NHA'], emoji: '🐔' },
-    { palavra: 'PATO', silabas: ['PA', 'TO'], emoji: '🦆' },
-
-    // Frutas
-    { palavra: 'MAÇÃ', silabas: ['MA', 'ÇÃ'], emoji: '🍎' },
-    { palavra: 'BANANA', silabas: ['BA', 'NA', 'NA'], emoji: '🍌' },
-    { palavra: 'LARANJA', silabas: ['LA', 'RAN', 'JA'], emoji: '🍊' },
-    { palavra: 'MELANCIA', silabas: ['ME', 'LAN', 'CIA'], emoji: '🍉' },
-    { palavra: 'ABACAXI', silabas: ['A', 'BA', 'CA', 'XI'], emoji: '🍍' },
-    { palavra: 'MORANGO', silabas: ['MO', 'RAN', 'GO'], emoji: '🍓' },
-    { palavra: 'UVA', silabas: ['U', 'VA'], emoji: '🍇' },
-    { palavra: 'PÊRA', silabas: ['PÊ', 'RA'], emoji: '🍐' },
-    { palavra: 'GOIABA', silabas: ['GO', 'IA', 'BA'], emoji: '🥭' },
-    { palavra: 'KIWI', silabas: ['KI', 'WI'], emoji: '🥝' },
-    { palavra: 'MANGA', silabas: ['MAN', 'GA'], emoji: '🥭' },
-    { palavra: 'CEREJA', silabas: ['CE', 'RE', 'JA'], emoji: '🍒' },
-    { palavra: 'CAQUI', silabas: ['CA', 'QUI'], emoji: '🧡' },
-    { palavra: 'AMORA', silabas: ['A', 'MO', 'RA'], emoji: '🫐' },
-    { palavra: 'FRAMBOESA', silabas: ['FRAM', 'BO', 'E', 'SA'], emoji: '🍓' },
-    { palavra: 'LIMÃO', silabas: ['LI', 'MÃO'], emoji: '🍋' },
-    { palavra: 'TANGERINA', silabas: ['TAN', 'GE', 'RI', 'NA'], emoji: '🍊' },
-    { palavra: 'CAJU', silabas: ['CA', 'JU'], emoji: '🌰' },
-    { palavra: 'PITANGA', silabas: ['PI', 'TAN', 'GA'], emoji: '🍒' },
-    { palavra: 'MARACUJÁ', silabas: ['MA', 'RA', 'CU', 'JÁ'], emoji: '🍈' },
-
-    // Países (sem emoji)
-    { palavra: 'BRASIL', silabas: ['BRA', 'SIL'], emoji: '' },
-    { palavra: 'CANADA', silabas: ['CA', 'NA', 'DA'], emoji: '' },
-    { palavra: 'FRANCA', silabas: ['FRAN', 'CA'], emoji: '' },
-    { palavra: 'ALEMANHA', silabas: ['A', 'LE', 'MAN', 'HA'], emoji: '' },
-    { palavra: 'CHINA', silabas: ['CHI', 'NA'], emoji: '' },
-    { palavra: 'JAPAO', silabas: ['JA', 'PAO'], emoji: '' },
-    { palavra: 'INDIA', silabas: ['IN', 'DI', 'A'], emoji: '' },
-    { palavra: 'ARGENTINA', silabas: ['AR', 'GEN', 'TI', 'NA'], emoji: '' },
-    { palavra: 'MEXICO', silabas: ['ME', 'XI', 'CO'], emoji: '' },
-    { palavra: 'ITALIA', silabas: ['I', 'TA', 'LIA'], emoji: '' },
-    { palavra: 'ESPANHA', silabas: ['ES', 'PAN', 'HA'], emoji: '' },
-    { palavra: 'INGLATERRA', silabas: ['IN', 'GLA', 'TER', 'RA'], emoji: '' },
-    { palavra: 'RUSSIA', silabas: ['RUS', 'SIA'], emoji: '' },
-    { palavra: 'AUSTRALIA', silabas: ['AU', 'STRA', 'LIA'], emoji: '' },
-    { palavra: 'PORTUGAL', silabas: ['POR', 'TU', 'GAL'], emoji: '' },
-    { palavra: 'HOLANDA', silabas: ['HO', 'LAN', 'DA'], emoji: '' },
-    { palavra: 'SUECIA', silabas: ['SUE', 'CIA'], emoji: '' },
-    { palavra: 'NORUEGA', silabas: ['NO', 'RU', 'E', 'GA'], emoji: '' }
+const licoesFacil = [
+    { palavra: 'BOLA', silabas: ['BO', 'LA'], imagem: 'imagens/BOLA.png' },
+    { palavra: 'PATO', silabas: ['PA', 'TO'], imagem: 'imagens/PATO.png' },
+    { palavra: 'SAPO', silabas: ['SA', 'PO'], imagem: 'imagens/SAPO.png' },
+    { palavra: 'LUVA', silabas: ['LU', 'VA'], imagem: 'imagens/LUVA.png' },
+    { palavra: 'CAMA', silabas: ['CA', 'MA'], imagem: 'imagens/CAMA.png' },
+    { palavra: 'RATO', silabas: ['RA', 'TO'], imagem: 'imagens/RATO.png' },
+    { palavra: 'MALA', silabas: ['MA', 'LA'], imagem: 'imagens/MALA.png' },
+    { palavra: 'CASA', silabas: ['CA', 'SA'], imagem: 'imagens/CASA.png' },
+    { palavra: 'PEIXE', silabas: ['PEI', 'XE'], imagem: 'imagens/PEIXE.png' },
+    { palavra: 'CAFÉ', silabas: ['CA', 'FÉ'], imagem: 'imagens/CAFÉ.png' },
+    { palavra: 'FOTO', silabas: ['FO', 'TO'], imagem: 'imagens/FOTO.png' },
+    { palavra: 'GALO', silabas: ['GA', 'LO'], imagem: 'imagens/GALO.png' },
+    { palavra: 'VACA', silabas: ['VA', 'CA'], imagem: 'imagens/VACA.png' },
+    { palavra: 'LATA', silabas: ['LA', 'TA'], imagem: 'imagens/LATA.png' },
+    { palavra: 'PENA', silabas: ['PE', 'NA'], imagem: 'imagens/PENA.png' },
+    { palavra: 'LAGO', silabas: ['LA', 'GO'], imagem: 'imagens/LAGO.png' },
+    { palavra: 'MOTO', silabas: ['MO', 'TO'], imagem: 'imagens/MOTO.png' },
+    { palavra: 'SACO', silabas: ['SA', 'CO'], imagem: 'imagens/SACO.png' },
+    { palavra: 'RODA', silabas: ['RO', 'DA'], imagem: 'imagens/RODA.png' },
+    { palavra: 'PIPA', silabas: ['PI', 'PA'], imagem: 'imagens/PIPA.png' },
 ];
 
+const licoesMedio = [
+    { palavra: 'BONECA', silabas: ['BO', 'NE', 'CA'], imagem: 'imagens/BONECA.png' },
+    { palavra: 'DADO', silabas: ['DA', 'DO'], imagem: 'imagens/DADO.png' },
+    { palavra: 'FACA', silabas: ['FA', 'CA'], imagem: 'imagens/FACA.png' },
+    { palavra: 'MESA', silabas: ['ME', 'SA'], imagem: 'imagens/MESA.png' },
+    { palavra: 'BEBÊ', silabas: ['BE', 'BÊ'], imagem: 'imagens/BEBÊ.png' },
+    { palavra: 'CACHORRO', silabas: ['CA', 'CHO', 'RRO'], imagem: 'imagens/CACHORRO.png' },
+    { palavra: 'JANELA', silabas: ['JA', 'NE', 'LA'], imagem: 'imagens/JANELA.png' },
+    { palavra: 'CANETA', silabas: ['CA', 'NE', 'TA'], imagem: 'imagens/CANETA.png' },
+    { palavra: 'PIMENTA', silabas: ['PI', 'MEN', 'TA'], imagem: 'imagens/PIMENTA.png' },
+    { palavra: 'FUTEBOL', silabas: ['FU', 'TE', 'BOL'], imagem: 'imagens/FUTEBOL.png' },
+    { palavra: 'PASSARO', silabas: ['PAS', 'SA', 'RO'], imagem: 'imagens/PASSARO.png' },
+    { palavra: 'MÁQUINA', silabas: ['MÁ', 'QUI', 'NA'], imagem: 'imagens/MÁQUINA.png' },
+    { palavra: 'MÚSICA', silabas: ['MÚ', 'SI', 'CA'], imagem: 'imagens/MÚSICA.png' },
+    { palavra: 'PERFUME', silabas: ['PER', 'FU', 'ME'], imagem: 'imagens/PERFUME.png' },
+    { palavra: 'GARRAFA', silabas: ['GAR', 'RA', 'FA'], imagem: 'imagens/GARRAFA.png' },
+    { palavra: 'MONTANHA', silabas: ['MON', 'TA', 'NHA'], imagem: 'imagens/MONTNHA.png' },
+    { palavra: 'ESCOLA', silabas: ['ES', 'CO', 'LA'], imagem: 'imagens/ESCOLA.png' },
+    { palavra: 'PESCADOR', silabas: ['PES', 'CA', 'DOR'], imagem: 'imagens/PESCADOR.png' },
+    { palavra: 'LIMONADA', silabas: ['LI', 'MO', 'NA', 'DA'], imagem: 'imagens/LIMONADA.png' },
+    { palavra: 'PAPELÃO', silabas: ['PA', 'PE', 'LÃO'], imagem: 'imagens/PAPELÃO.png' },
+    { palavra: 'CANTORA', silabas: ['CAN', 'TO', 'RA'], imagem: 'imagens/CANTORA.png' },
+    { palavra: 'PEDRA', silabas: ['PE', 'DRA'], imagem: 'imagens/PEDRA.png' },
+];
+
+const licoesDificil = [
+    { palavra: 'HIPOPÓTAMO', silabas: ['HI', 'PO', 'PÓ', 'TA', 'MO'], imagem: 'imagens/HIPOPÓTAMO.png' },
+    { palavra: 'MARACUJÁ', silabas: ['MA', 'RA', 'CU', 'JÁ'], imagem: 'imagens/MARACUJÁ.png' },
+    { palavra: 'ORNITORRINCO', silabas: ['OR', 'NI', 'TOR', 'RIN', 'CO'], imagem: 'imagens/ORNITORRINCO.png' },
+    { palavra: 'ELEFANTE', silabas: ['E', 'LE', 'FAN', 'TE'], imagem: 'imagens/ELEFANTE.png' },
+    { palavra: 'ABACAXI', silabas: ['A', 'BA', 'CA', 'XI'], imagem: 'imagens/ABACAXI.png' },
+    { palavra: 'JARDINEIRO', silabas: ['JAR', 'DI', 'NEI', 'RO'], imagem: 'imagens/JARDINEIRO.png' },
+    { palavra: 'LANTERNA', silabas: ['LAN', 'TER', 'NA'], imagem: 'imagens/LANTERNA.png' },
+    { palavra: 'MELANCIA', silabas: ['ME', 'LAN', 'CI', 'A'], imagem: 'imagens/MELANCIA.png' },
+    { palavra: 'PARALELEPÍPEDO', silabas: ['PA', 'RA', 'LE', 'LE', 'PÍ', 'PE', 'DO'], imagem: 'imagens/PARALELEPÍPEDO.png' },
+    { palavra: 'TELEFONE', silabas: ['TE', 'LE', 'FO', 'NE'], imagem: 'imagens/TELEFONE.png' },
+    { palavra: 'COMPUTADOR', silabas: ['COM', 'PU', 'TA', 'DOR'], imagem: 'imagens/COMPUTADOR.png' },
+    { palavra: 'TELEVISÃO', silabas: ['TE', 'LE', 'VI', 'SÃO'], imagem: 'imagens/TELEVISÃO.png' },
+];
+
+function selecionarNivel(nivel) {
+    if (nivel === 'facil') {
+        licoes = [...licoesFacil];
+    } else if (nivel === 'medio') {
+        licoes = [...licoesMedio];
+    } else if (nivel === 'dificil') {
+        licoes = [...licoesDificil];
+    }
+
+    embaralharLicoes();
+    mostrarLicoes();
+}
+
+function embaralharLicoes() {
+    licoes.sort(() => Math.random() - 0.5);
+}
+
 function mostrarLicoes() {
-    document.getElementById('tela-inicial').classList.add('escondido');
-    document.getElementById('tela-licoes').classList.remove('escondido');
+    document.getElementById('tela-inicial').style.display = 'none';
+    document.getElementById('tela-licoes').style.display = 'block';
 
-    const container = document.getElementById('lista-licoes');
-    container.innerHTML = '';
-
-    licoes.forEach((li) => {
-        const btn = document.createElement('button');
-        btn.textContent = `${li.emoji} ${li.palavra}`;
-        btn.onclick = () => iniciarLicao(li.palavra, li.silabas, li.emoji);
-        container.appendChild(btn);
+    const lista = document.getElementById('lista-licoes');
+    lista.innerHTML = '';
+    licoes.forEach((licao, index) => {
+        const botao = document.createElement('button');
+        botao.textContent = `${licao.palavra}`;
+        botao.onclick = () => iniciarLicao(index);
+        lista.appendChild(botao);
     });
 }
 
-function iniciarLicao(palavra, silabas, emoji) {
-    palavraCorreta = palavra;
-    silabasCorretas = silabas;
-    emojiAtual = emoji;
-    indiceAtual = licoes.findIndex(l => l.palavra === palavra);
-
-    document.getElementById('tela-licoes').classList.add('escondido');
-    document.getElementById('tela-atividade').classList.remove('escondido');
-
-    document.getElementById('emoji').innerText = emoji;
-    document.getElementById('resposta').innerText = '';
-    document.getElementById('feedback').innerText = '';
+function iniciarLicao(indice) {
+    licaoAtual = indice;
+    const licao = licoes[licaoAtual];
+    document.getElementById('tela-licoes').style.display = 'none';
+    document.getElementById('tela-atividade').style.display = 'block';
+    const emojiDiv = document.getElementById('emoji');
+    emojiDiv.innerHTML = `<img src="${licao.imagem}" alt="${licao.palavra}" class="imagem-licao">`;
+    document.getElementById('feedback').textContent = '';
     document.getElementById('btn-proximo').classList.add('escondido');
 
-    const resposta = document.getElementById('resposta');
-    resposta.classList.remove('acerto');
-    resposta.classList.remove('erro');
+    const sugestoes = document.getElementById('sugestoes');
+    sugestoes.innerHTML = '';
+    const silabasEmbaralhadas = [...licao.silabas].sort(() => Math.random() - 0.5);
 
-    const embaralhadas = [...silabas].sort(() => Math.random() - 0.5);
-    const sugestoesDiv = document.getElementById('sugestoes');
-    sugestoesDiv.innerHTML = '';
+    silabasEmbaralhadas.forEach((silaba) => {
+        const span = document.createElement('span');
+        span.textContent = silaba;
+        span.className = 'silaba';
+        span.style.cursor = 'pointer';
 
-    embaralhadas.forEach(s => {
-        const div = document.createElement('div');
-        div.className = 'silaba';
-        div.innerText = s;
-        div.setAttribute('draggable', true);
-        div.ondragstart = arrastar;
-        sugestoesDiv.appendChild(div);
+        // Ao clicar na sílaba da sugestão, adiciona na resposta
+        span.addEventListener('click', () => {
+            adicionarSilabaNaResposta(silaba);
+        });
+
+        sugestoes.appendChild(span);
     });
+
+    const resposta = document.getElementById('resposta');
+    resposta.innerHTML = '';
 }
 
-function arrastar(event) {
-    event.dataTransfer.setData("text", event.target.innerText);
+// Adiciona sílaba na resposta e permite remover clicando
+function adicionarSilabaNaResposta(silaba) {
+    const resposta = document.getElementById('resposta');
+    const span = document.createElement('span');
+    span.textContent = silaba;
+    span.className = 'silaba resposta-silaba';
+    span.style.cursor = 'pointer';
+
+    // Ao clicar na sílaba da resposta, remove ela
+    span.addEventListener('click', () => {
+        resposta.removeChild(span);
+        verificarResposta();
+    });
+
+    resposta.appendChild(span);
+    verificarResposta();
 }
 
-function permitirSoltar(event) {
-    event.preventDefault();
+function verificarResposta() {
+    const resposta = Array.from(document.getElementById('resposta').children)
+        .map((el) => el.textContent)
+        .join('');
+
+    const licao = licoes[licaoAtual];
+    const feedback = document.getElementById('feedback');
+
+    if (resposta.length === licao.palavra.length) {
+        if (resposta === licao.palavra) {
+            feedback.textContent = '✅ Correto!';
+            document.getElementById('btn-proximo').classList.remove('escondido');
+        } else {
+            feedback.textContent = '❌ Tente novamente.';
+            document.getElementById('btn-proximo').classList.add('escondido');
+        }
+    } else {
+        feedback.textContent = '';
+        document.getElementById('btn-proximo').classList.add('escondido');
+    }
 }
 
-function soltar(event) {
-    event.preventDefault();
-    const silaba = event.dataTransfer.getData("text");
-    const resposta = document.getElementById("resposta");
-
-    resposta.innerText += silaba;
-
-    if (resposta.innerText === palavraCorreta) {
-        document.getElementById("feedback").innerText = `🎉 Muito bem! Você formou ${emojiAtual} ${palavraCorreta}!`;
-        document.getElementById("feedback").style.color = "green";
-        resposta.classList.add('acerto');
-        document.getElementById("btn-proximo").classList.remove('escondido');
-    } else if (resposta.innerText.length >= palavraCorreta.length) {
-        document.getElementById("feedback").innerText = "❌ Tente novamente!";
-        document.getElementById("feedback").style.color = "red";
-        resposta.classList.add('erro');
-        setTimeout(() => {
-            resposta.classList.remove('erro');
-            resposta.innerText = '';
-        }, 1000);
+function proximaLicao() {
+    if (licaoAtual + 1 < licoes.length) {
+        iniciarLicao(licaoAtual + 1);
+    } else {
+        voltarMenu();
     }
 }
 
 function reiniciar() {
-    iniciarLicao(palavraCorreta, silabasCorretas, emojiAtual);
+    iniciarLicao(licaoAtual);
 }
 
 function voltarMenu() {
-    document.getElementById('tela-atividade').classList.add('escondido');
-    document.getElementById('tela-licoes').classList.remove('escondido');
-}
-
-function proximaLicao() {
-    const proximo = (indiceAtual + 1) % licoes.length;
-    const li = licoes[proximo];
-    iniciarLicao(li.palavra, li.silabas, li.emoji);
+    document.getElementById('tela-atividade').style.display = 'none';
+    document.getElementById('tela-licoes').style.display = 'none';
+    document.getElementById('tela-inicial').style.display = 'block';
 }

@@ -202,3 +202,46 @@ button#btn-proximo:active {
     box-shadow: 0 2px #012f5b;
     transform: translateY(2px);
 }
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    #lista-licoes button {
+        width: 100%;
+        font-size: 1.2rem;
+        padding: 12px;
+    }
+
+    .silaba {
+        font-size: 1.5rem;
+        padding: 15px 20px;
+        width: calc(45% - 10px);
+        box-sizing: border-box;
+    }
+
+    #resposta {
+        font-size: 2rem;
+        padding: 10px;
+    }
+
+    button {
+        font-size: 1.1rem;
+        padding: 12px 20px;
+    }
+
+    #feedback {
+        font-size: 1.2rem;
+    }
+
+    h1,
+    h2 {
+        font-size: 1.6rem;
+    }
+
+    #emoji {
+        font-size: 3.5rem;
+    }
+
+}
